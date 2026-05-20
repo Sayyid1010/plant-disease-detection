@@ -3,22 +3,21 @@ import numpy as np
 from PIL import Image
 from ai_edge_litert.interpreter import Interpreter
 
-# Load model
 interpreter = Interpreter(model_path="plant_disease_model.tflite")
 interpreter.allocate_tensors()
-
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
 classes = ["Tomato Early Blight", "Tomato Late Blight", "Tomato Healthy"]
 
 st.title("🌿 Plant Disease Detection System")
+st.subheader("Federal University of Technology Babura")
 st.write("Upload a tomato leaf photo to detect disease instantly!")
 
 uploaded_file = st.file_uploader("Choose a leaf image...", type=["jpg","jpeg","png"])
 
 if uploaded_file is not None:
-    image = Image.open(uploaded_file)
+    image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Uploaded Leaf", width=300)
     img = image.resize((224, 224))
     img = np.array(img, dtype=np.float32) / 255.0
@@ -28,5 +27,5 @@ if uploaded_file is not None:
     prediction = interpreter.get_tensor(output_details[0]['index'])
     result = classes[np.argmax(prediction)]
     confidence = np.max(prediction) * 100
-    st.success(f"Disease Detected: {result}")
-    st.info(f"Confidence: {confidence:.2f}%")
+    st.success(f"✅ Disease Detected: {result}")
+    st.info(f"📊 Confidence: {confidence:.2f}%")
