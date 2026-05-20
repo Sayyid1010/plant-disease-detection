@@ -1,10 +1,10 @@
 import streamlit as st
 import numpy as np
 from PIL import Image
-import tflite_runtime.interpreter as tflite
+from ai_edge_litert.interpreter import Interpreter
 
 # Load model
-interpreter = tflite.Interpreter(model_path="plant_disease_model.tflite")
+interpreter = Interpreter(model_path="plant_disease_model.tflite")
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
