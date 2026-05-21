@@ -104,7 +104,20 @@ tab1, tab2, tab3 = st.tabs(["📸 AI Photo Detection", "🔍 Search by Name", "�
 
 with tab1:
     st.markdown("### 📸 Upload Leaf Photo for AI Detection")
-    st.write("Upload any plant leaf photo and let the AI detect the disease instantly!")
+    st.write("Upload a plant leaf photo and let the AI detect the disease instantly!")
+
+st.markdown("""
+<div class="info-card">
+<h4>🌿 Crops Supported by AI Detection:</h4>
+<p>🍎 Apple &nbsp;|&nbsp; 🫐 Blueberry &nbsp;|&nbsp; 🍒 Cherry &nbsp;|&nbsp; 
+🌽 Corn/Maize &nbsp;|&nbsp; 🍇 Grape &nbsp;|&nbsp; 🍊 Orange &nbsp;|&nbsp; 
+🍑 Peach &nbsp;|&nbsp; 🌶️ Pepper &nbsp;|&nbsp; 🥔 Potato &nbsp;|&nbsp; 
+🍓 Raspberry &nbsp;|&nbsp; 🫘 Soybean &nbsp;|&nbsp; 🎃 Squash &nbsp;|&nbsp; 
+🍓 Strawberry &nbsp;|&nbsp; 🍅 Tomato</p>
+<p><b>⚠️ Note:</b> For Rice, Cassava, Groundnut and Onion — use the 
+<b>Search</b> or <b>Browse</b> tab instead!</p>
+</div>
+""", unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Upload leaf image", type=["jpg","jpeg","png"])
     if uploaded_file is not None:
         image = Image.open(uploaded_file).convert("RGB")
