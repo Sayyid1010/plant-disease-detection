@@ -51,7 +51,7 @@ diseases_db = {
     "potato healthy": {"name":"Potato Healthy","crop":"Potato","emoji":"🟢","cause":"No disease","symptoms":"Plant appears completely healthy.","treatment":["No treatment needed"],"prevention":["Maintain good soil health","Monitor regularly"]},
     "corn common rust": {"name":"Corn Common Rust","crop":"Corn/Maize","emoji":"🟠","cause":"Fungus: Puccinia sorghi","symptoms":"Small golden-brown pustules scattered on both leaf surfaces.","treatment":["Apply Propiconazole or Azoxystrobin","Spray at first sign of disease","Repeat application every 14 days","Remove heavily infected plants"],"prevention":["Plant rust-resistant corn varieties","Plant early to avoid peak rust season","Monitor fields regularly","Maintain good crop nutrition"]},
     "corn northern leaf blight": {"name":"Corn Northern Leaf Blight","crop":"Corn/Maize","emoji":"🟠","cause":"Fungus: Exserohilum turcicum","symptoms":"Long tan-grey cigar-shaped lesions on leaves.","treatment":["Apply Propiconazole or Tebuconazole","Spray at tasseling stage","Remove infected debris","Avoid dense planting"],"prevention":["Plant resistant hybrids","Rotate crops","Till soil to bury debris","Avoid excessive nitrogen"]},
-    "corn cercospora leaf spot": {"name":"Corn Cercospora Leaf Spot","crop":"Corn/Maize","emoji":"🟡","cause":"Fungus: Cercospora zeae-maydis","symptoms":"Rectangular grey to tan lesions running between leaf veins.","treatment":["Apply Strobilurin or Triazole fungicide","Spray at early disease onset","Improve field drainage","Remove infected residue"],"prevention":["Plant resistant varieties","Rotate crops","Reduce plant density","Avoid minimum tillage in infected fields"]},
+    "corn cercospora leaf spot": {"name":"Corn Cercospora Leaf Spot","crop":"Corn/Maize","emoji":"🟡","cause":"Fungus: Cercospora zeae-maydis","symptoms":"Rectangular grey to tan lesions running between leaf veins.","treatment":["Apply Strobilurin or Triazole fungicide","Spray at early disease onset","Improve field drainage","Remove infected residue"],"prevention":["Plant resistant varieties","Rotate crops","Reduce plant density","Avoid minimum tillage"]},
     "corn healthy": {"name":"Corn Healthy","crop":"Corn/Maize","emoji":"🟢","cause":"No disease","symptoms":"Plant appears completely healthy.","treatment":["No treatment needed"],"prevention":["Maintain good soil health","Monitor regularly"]},
     "rice blast": {"name":"Rice Blast Disease","crop":"Rice","emoji":"🔴","cause":"Fungus: Magnaporthe oryzae","symptoms":"Diamond-shaped lesions with grey centers and brown borders on leaves.","treatment":["Apply Tricyclazole or Isoprothiolane","Spray at booting stage and repeat after 10 days","Drain fields periodically","Remove infected plant debris"],"prevention":["Plant blast-resistant rice varieties","Avoid excessive nitrogen fertilization","Maintain proper water management","Use certified disease-free seeds"]},
     "rice brown spot": {"name":"Rice Brown Spot","crop":"Rice","emoji":"🟠","cause":"Fungus: Cochliobolus miyabeanus","symptoms":"Oval brown spots with yellow halo on leaves.","treatment":["Apply Mancozeb or Iprodione","Spray at tillering stage","Improve soil fertility","Remove infected debris"],"prevention":["Use certified seeds","Maintain proper nutrition","Avoid water stress","Rotate crops"]},
@@ -75,73 +75,262 @@ diseases_db = {
     "grape black rot": {"name":"Grape Black Rot","crop":"Grape","emoji":"🔴","cause":"Fungus: Guignardia bidwellii","symptoms":"Brown circular lesions on leaves, shriveled black mummified berries.","treatment":["Apply Myclobutanil or Mancozeb","Spray from bud break","Remove infected berries","Repeat every 7-14 days"],"prevention":["Remove mummified berries","Prune for good air circulation","Apply early season sprays","Remove infected plant material"]},
 }
 
-# ── CSS ─────────────────────────────────────────
+# ── Beautiful CSS ────────────────────────────────
 st.markdown("""
 <style>
-    .main{background-color:#f0f7f0}
-    .title{background:linear-gradient(135deg,#1a5276,#27ae60);color:white;padding:30px;border-radius:15px;text-align:center;margin-bottom:20px}
-    .disease-box{background:#fdecea;border-left:6px solid #e74c3c;padding:15px;border-radius:8px;margin:10px 0}
-    .healthy-box{background:#eafaf1;border-left:6px solid #27ae60;padding:15px;border-radius:8px;margin:10px 0}
-    .info-card{background:white;padding:20px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1);margin:15px 0}
-    .footer{text-align:center;color:#888;font-size:13px;margin-top:30px;padding:15px;border-top:1px solid #ddd}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* { font-family: 'Poppins', sans-serif; }
+
+.main { background: linear-gradient(180deg, #e8f5e9 0%, #f1f8f1 100%); }
+
+.hero {
+    background: linear-gradient(135deg, #1a5276 0%, #1e8449 50%, #27ae60 100%);
+    color: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(26,82,118,0.3);
+    animation: fadeIn 1s ease;
+}
+.hero h1 { font-size: 2rem; font-weight: 700; margin: 0; }
+.hero p { opacity: 0.9; margin: 5px 0 0 0; }
+
+.stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-top: 4px solid #27ae60;
+    transition: transform 0.2s;
+}
+.stat-card:hover { transform: translateY(-3px); }
+.stat-num { font-size: 2rem; font-weight: 700; color: #1a5276; }
+.stat-label { color: #666; font-size: 0.85rem; }
+
+.crop-badge {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border: 1px solid #a5d6a7;
+    border-radius: 20px;
+    padding: 8px 15px;
+    display: inline-block;
+    margin: 4px;
+    font-size: 0.85rem;
+    color: #1b5e20;
+    font-weight: 500;
+}
+
+.upload-box {
+    border: 2px dashed #27ae60;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    background: white;
+    margin: 15px 0;
+}
+
+.disease-result {
+    background: linear-gradient(135deg, #fdecea, #fce4e4);
+    border-left: 6px solid #e74c3c;
+    border-radius: 12px;
+    padding: 20px 25px;
+    margin: 15px 0;
+    box-shadow: 0 4px 15px rgba(231,76,60,0.15);
+}
+.disease-result h2 { color: #c0392b; margin: 0 0 5px 0; }
+
+.healthy-result {
+    background: linear-gradient(135deg, #eafaf1, #d5f5e3);
+    border-left: 6px solid #27ae60;
+    border-radius: 12px;
+    padding: 20px 25px;
+    margin: 15px 0;
+    box-shadow: 0 4px 15px rgba(39,174,96,0.15);
+}
+.healthy-result h2 { color: #1e8449; margin: 0 0 5px 0; }
+
+.confidence-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin: 15px 0;
+}
+.confidence-num {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1a5276;
+    line-height: 1;
+}
+
+.info-section {
+    background: white;
+    border-radius: 15px;
+    padding: 20px 25px;
+    margin: 12px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    border-left: 4px solid #3498db;
+}
+.info-section h4 {
+    color: #1a5276;
+    margin: 0 0 12px 0;
+    font-size: 1.1rem;
+}
+
+.treatment-item {
+    background: #e8f5e9;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 6px 0;
+    color: #1b5e20;
+    font-size: 0.9rem;
+}
+.prevention-item {
+    background: #e3f2fd;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 6px 0;
+    color: #1565c0;
+    font-size: 0.9rem;
+}
+
+.search-result-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-top: 3px solid #27ae60;
+}
+
+.how-to-step {
+    background: white;
+    border-radius: 10px;
+    padding: 12px 15px;
+    margin: 8px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer {
+    background: linear-gradient(135deg, #1a5276, #1e8449);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 30px;
+    font-size: 13px;
+}
+.footer a { color: #a9dfbf; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 </style>
 """, unsafe_allow_html=True)
 
-# ── Header ──────────────────────────────────────
+# ── Hero Header ──────────────────────────────────
 st.markdown("""
-<div class="title">
+<div class="hero">
     <h1>🌿 Plant Disease Detection System</h1>
-    <p style="font-size:16px;margin:0;">Federal University of Technology Babura</p>
-    <p style="font-size:14px;margin:5px 0 0 0;opacity:0.85;">
-        AI-Powered Early Detection for Healthier Crops
+    <p style="font-size:1rem;">Federal University of Technology Babura</p>
+    <p style="font-size:0.85rem; opacity:0.8;">
+        🤖 AI-Powered | 🆓 Free | 📱 Works on Any Device
     </p>
 </div>
 """, unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns(3)
-col1.metric("🌾 Crops", "10+")
-col2.metric("🦠 Diseases", "47+")
-col3.metric("🤖 Accuracy", "95.11%")
-st.markdown("---")
+# ── Stats ────────────────────────────────────────
+c1, c2, c3, c4 = st.columns(4)
+with c1:
+    st.markdown('<div class="stat-card"><div class="stat-num">14+</div><div class="stat-label">🌾 Crops</div></div>', unsafe_allow_html=True)
+with c2:
+    st.markdown('<div class="stat-card"><div class="stat-num">47+</div><div class="stat-label">🦠 Diseases</div></div>', unsafe_allow_html=True)
+with c3:
+    st.markdown('<div class="stat-card"><div class="stat-num">95%</div><div class="stat-label">🎯 Accuracy</div></div>', unsafe_allow_html=True)
+with c4:
+    st.markdown('<div class="stat-card"><div class="stat-num">🆓</div><div class="stat-label">💰 Free</div></div>', unsafe_allow_html=True)
 
+st.markdown("<br>", unsafe_allow_html=True)
+
+# ── Tabs ─────────────────────────────────────────
 tab1, tab2, tab3 = st.tabs([
     "📸 AI Photo Detection",
     "🔍 Search by Name",
     "🌾 Browse by Crop"
 ])
 
-# ── TAB 1 ────────────────────────────────────────
+# ════════════════════════════════════════════════
+# TAB 1
+# ════════════════════════════════════════════════
 with tab1:
-    st.markdown("### 📸 Upload Leaf Photo for AI Detection")
-    st.write("Upload a plant leaf photo and let the AI detect the disease instantly!")
+    st.markdown("## 📸 AI Plant Disease Detection")
+    st.write("Upload a clear photo of a plant leaf and our AI will instantly identify any disease!")
 
+    # How to use
+    with st.expander("📖 How to use — Click to expand"):
+        st.markdown("""
+        <div class="how-to-step">⬆️ <b>Step 1:</b> Upload a clear photo of a plant leaf below</div>
+        <div class="how-to-step">🔍 <b>Step 2:</b> Click the "Detect Disease" button</div>
+        <div class="how-to-step">📋 <b>Step 3:</b> Read the diagnosis and follow treatment advice</div>
+        <div class="how-to-step">💡 <b>Tip:</b> Use a well-lit, close-up photo for best results</div>
+        """, unsafe_allow_html=True)
+
+    # Supported crops
+    st.markdown("### ✅ Crops the AI Can Detect:")
     st.markdown("""
-    <div class="info-card">
-    <h4>✅ Crops Supported by AI Detection:</h4>
-    <p>🍎 Apple &nbsp;|&nbsp; 🫐 Blueberry &nbsp;|&nbsp; 🍒 Cherry &nbsp;|&nbsp;
-    🌽 Corn/Maize &nbsp;|&nbsp; 🍇 Grape &nbsp;|&nbsp; 🍊 Orange &nbsp;|&nbsp;
-    🍑 Peach &nbsp;|&nbsp; 🌶️ Pepper &nbsp;|&nbsp; 🥔 Potato &nbsp;|&nbsp;
-    🍓 Raspberry &nbsp;|&nbsp; 🫘 Soybean &nbsp;|&nbsp; 🎃 Squash &nbsp;|&nbsp;
-    🍓 Strawberry &nbsp;|&nbsp; 🍅 Tomato</p>
-    <p>⚠️ <b>For Rice, Cassava, Groundnut, Onion</b> — 
-    use the <b>Search</b> or <b>Browse</b> tab instead!</p>
+    <div style="background:white;padding:15px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:15px;">
+    <span class="crop-badge">🍎 Apple</span>
+    <span class="crop-badge">🫐 Blueberry</span>
+    <span class="crop-badge">🍒 Cherry</span>
+    <span class="crop-badge">🌽 Corn/Maize</span>
+    <span class="crop-badge">🍇 Grape</span>
+    <span class="crop-badge">🍊 Orange</span>
+    <span class="crop-badge">🍑 Peach</span>
+    <span class="crop-badge">🌶️ Pepper</span>
+    <span class="crop-badge">🥔 Potato</span>
+    <span class="crop-badge">🍓 Raspberry</span>
+    <span class="crop-badge">🫘 Soybean</span>
+    <span class="crop-badge">🎃 Squash</span>
+    <span class="crop-badge">🍓 Strawberry</span>
+    <span class="crop-badge">🍅 Tomato</span>
     </div>
+    <p style="color:#e74c3c;font-size:0.85rem;">
+    ⚠️ <b>For Rice, Cassava, Groundnut, Onion</b> — 
+    use the <b>🔍 Search</b> or <b>🌾 Browse</b> tab!
+    </p>
     """, unsafe_allow_html=True)
 
+    # Upload
     uploaded_file = st.file_uploader(
-        "Upload leaf image",
-        type=["jpg","jpeg","png"]
+        "📤 Choose a leaf image (JPG or PNG)",
+        type=["jpg","jpeg","png"],
+        help="Upload a clear photo of the plant leaf"
     )
 
     if uploaded_file is not None:
         image = Image.open(uploaded_file).convert("RGB")
-        col1, col2, col3 = st.columns([1,2,1])
+        col1, col2, col3 = st.columns([1,3,1])
         with col2:
-            st.image(image, caption="Uploaded Leaf", use_column_width=True)
+            st.image(image, caption="📷 Uploaded Leaf Image",
+                    use_column_width=True)
 
-        if st.button("🔍 Detect Disease", use_container_width=True):
+        st.markdown("<br>", unsafe_allow_html=True)
+        detect_btn = st.button(
+            "🔍 DETECT DISEASE NOW",
+            use_container_width=True,
+            type="primary"
+        )
+
+        if detect_btn:
             if model_loaded:
-                with st.spinner("🤖 AI is analysing your leaf..."):
+                with st.spinner("🤖 AI is analysing your leaf... Please wait..."):
                     img = image.resize((224,224))
                     img = np.array(img, dtype=np.float32)/255.0
                     img = np.expand_dims(img, axis=0)
@@ -151,26 +340,33 @@ with tab1:
                     result = ai_classes[np.argmax(prediction)]
                     confidence = np.max(prediction)*100
 
+                st.markdown("---")
+                st.markdown("## 📊 Detection Results")
+
                 if "Healthy" in result:
                     st.markdown(f"""
-                    <div class="healthy-box">
+                    <div class="healthy-result">
                         <h2>🟢 {result}</h2>
-                        <p>Your plant is healthy! Keep up the good work.</p>
+                        <p>Great news! Your plant appears to be completely healthy.
+                        Keep monitoring it regularly to maintain its health.</p>
                     </div>
                     """, unsafe_allow_html=True)
                 else:
                     st.markdown(f"""
-                    <div class="disease-box">
-                        <h2>⚠️ Disease Detected: {result}</h2>
-                        <p>Please follow treatment recommendations below immediately.</p>
+                    <div class="disease-result">
+                        <h2>⚠️ {result}</h2>
+                        <p>Disease detected! Please follow the treatment 
+                        recommendations below as soon as possible to prevent 
+                        further spread.</p>
                     </div>
                     """, unsafe_allow_html=True)
 
+                # Confidence
                 st.markdown(f"""
-                <div class="info-card">
-                    <h4>📊 Confidence Score</h4>
-                    <h2 style="color:#1a5276;text-align:center;">{confidence:.2f}%</h2>
-                    <p style="text-align:center;color:#888;">
+                <div class="confidence-card">
+                    <p style="color:#666;margin:0;">🎯 AI Confidence Score</p>
+                    <div class="confidence-num">{confidence:.1f}%</div>
+                    <p style="color:#888;font-size:0.85rem;margin:5px 0 0 0;">
                         The AI is {confidence:.1f}% confident in this diagnosis
                     </p>
                 </div>
@@ -178,37 +374,49 @@ with tab1:
 
                 info = diseases_db.get(result.lower(), None)
                 if info:
+                    # Disease Info
                     st.markdown(f"""
-                    <div class="info-card">
+                    <div class="info-section">
                         <h4>🔬 Disease Information</h4>
+                        <p><b>Disease Name:</b> {info['name']}</p>
+                        <p><b>Affected Crop:</b> {info['crop']}</p>
                         <p><b>Cause:</b> {info['cause']}</p>
                         <p><b>Symptoms:</b> {info['symptoms']}</p>
                     </div>
                     """, unsafe_allow_html=True)
 
-                    st.markdown('<div class="info-card"><h4>💊 Treatment</h4>',
-                               unsafe_allow_html=True)
+                    # Treatment
+                    st.markdown('<div class="info-section" style="border-left-color:#27ae60;"><h4>💊 Recommended Treatment</h4>', unsafe_allow_html=True)
                     for t in info["treatment"]:
-                        st.write(f"✅ {t}")
+                        st.markdown(f'<div class="treatment-item">✅ {t}</div>', unsafe_allow_html=True)
                     st.markdown('</div>', unsafe_allow_html=True)
 
-                    st.markdown('<div class="info-card"><h4>🛡️ Prevention</h4>',
-                               unsafe_allow_html=True)
+                    # Prevention
+                    st.markdown('<div class="info-section" style="border-left-color:#3498db;"><h4>🛡️ Prevention Tips</h4>', unsafe_allow_html=True)
                     for p in info["prevention"]:
-                        st.write(f"🔹 {p}")
+                        st.markdown(f'<div class="prevention-item">🔹 {p}</div>', unsafe_allow_html=True)
                     st.markdown('</div>', unsafe_allow_html=True)
-            else:
-                st.error("❌ AI Model not loaded. Please check deployment.")
 
-# ── TAB 2 ────────────────────────────────────────
+                    st.success("✅ Analysis complete! Follow the treatment steps above for best results.")
+            else:
+                st.error("❌ AI Model not loaded. Please check deployment configuration.")
+
+# ════════════════════════════════════════════════
+# TAB 2
+# ════════════════════════════════════════════════
 with tab2:
-    st.markdown("### 🔍 Search Any Disease or Crop")
-    st.write("Type any crop name or disease name to get full information!")
-    st.info("💡 Try typing: **tomato, rice, cassava, blight, rust, maize, groundnut**")
+    st.markdown("## 🔍 Search Disease Information")
+    st.write("Type any crop name or disease name to get complete information instantly!")
+
+    st.markdown("""
+    <div style="background:#e8f5e9;border-radius:10px;padding:12px 15px;margin-bottom:15px;">
+    💡 <b>Try searching for:</b> tomato, rice, cassava, blight, rust, maize, groundnut, pepper, mosaic, mildew
+    </div>
+    """, unsafe_allow_html=True)
 
     query = st.text_input(
-        "Type here:",
-        placeholder="e.g. tomato, rice blast, cassava, blight, rust..."
+        "🔎 Type crop or disease name here:",
+        placeholder="e.g. tomato, rice blast, cassava mosaic, blight...",
     )
 
     if query:
@@ -219,55 +427,125 @@ with tab2:
             or q in info["name"].lower()
             or q in info["crop"].lower()
             or q in info["symptoms"].lower()
+            or q in info["cause"].lower()
         ]
+
         if found:
-            st.success(f"✅ Found {len(found)} result(s) for '{query}'")
+            st.success(f"✅ Found **{len(found)}** result(s) for **'{query}'**")
             for info in found:
                 with st.expander(f"{info['emoji']} {info['name']} — {info['crop']}"):
-                    st.write(f"**🔬 Cause:** {info['cause']}")
-                    st.write(f"**👁️ Symptoms:** {info['symptoms']}")
-                    st.write("**💊 Treatment:**")
-                    for t in info["treatment"]:
-                        st.write(f"✅ {t}")
-                    st.write("**🛡️ Prevention:**")
-                    for p in info["prevention"]:
-                        st.write(f"🔹 {p}")
-        else:
-            st.warning(f"❌ No results found for '{query}'")
-            st.write("Try: **tomato, potato, rice, cassava, maize, groundnut, pepper, onion, apple, grape**")
+                    st.markdown(f"""
+                    <div class="info-section">
+                        <h4>🔬 Disease Details</h4>
+                        <p><b>🌾 Crop:</b> {info['crop']}</p>
+                        <p><b>🧫 Cause:</b> {info['cause']}</p>
+                        <p><b>👁️ Symptoms:</b> {info['symptoms']}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
 
-# ── TAB 3 ────────────────────────────────────────
+                    st.markdown("**💊 Treatment Steps:**")
+                    for t in info["treatment"]:
+                        st.markdown(f'<div class="treatment-item">✅ {t}</div>', unsafe_allow_html=True)
+
+                    st.markdown("**🛡️ Prevention Tips:**")
+                    for p in info["prevention"]:
+                        st.markdown(f'<div class="prevention-item">🔹 {p}</div>', unsafe_allow_html=True)
+        else:
+            st.warning(f"❌ No results found for **'{query}'**")
+            st.markdown("""
+            <div style="background:white;border-radius:10px;padding:15px;margin-top:10px;">
+            <b>Try searching for these crops:</b><br><br>
+            🍅 tomato &nbsp;|&nbsp; 🥔 potato &nbsp;|&nbsp; 🌾 rice &nbsp;|&nbsp;
+            🌿 cassava &nbsp;|&nbsp; 🌽 maize &nbsp;|&nbsp; 🥜 groundnut &nbsp;|&nbsp;
+            🌶️ pepper &nbsp;|&nbsp; 🧅 onion &nbsp;|&nbsp; 🍎 apple &nbsp;|&nbsp; 🍇 grape
+            </div>
+            """, unsafe_allow_html=True)
+
+# ════════════════════════════════════════════════
+# TAB 3
+# ════════════════════════════════════════════════
 with tab3:
-    st.markdown("### 🌾 Browse All Diseases by Crop")
-    st.write("Select a crop to see all its diseases and treatments!")
+    st.markdown("## 🌾 Browse Diseases by Crop")
+    st.write("Select any crop to see all its diseases, symptoms, and treatment advice!")
 
     crops = sorted(set(info["crop"] for info in diseases_db.values()))
-    selected = st.selectbox("Select a crop:", ["-- Select a crop --"] + crops)
 
-    if selected != "-- Select a crop --":
+    crop_emojis = {
+        "Apple": "🍎", "Cassava": "🌿", "Corn/Maize": "🌽",
+        "Grape": "🍇", "Groundnut": "🥜", "Onion": "🧅",
+        "Pepper": "🌶️", "Potato": "🥔", "Rice": "🌾",
+        "Tomato": "🍅"
+    }
+
+    selected = st.selectbox(
+        "🌾 Select a crop:",
+        ["-- Select a crop to view diseases --"] + crops,
+        help="Choose a crop to see all associated diseases"
+    )
+
+    if selected != "-- Select a crop to view diseases --":
         matches = [
             info for info in diseases_db.values()
             if info["crop"] == selected
         ]
-        st.info(f"Found **{len(matches)} diseases** for **{selected}**")
-        for info in matches:
-            with st.expander(f"{info['emoji']} {info['name']}"):
-                st.write(f"**🔬 Cause:** {info['cause']}")
-                st.write(f"**👁️ Symptoms:** {info['symptoms']}")
-                st.write("**💊 Treatment:**")
-                for t in info["treatment"]:
-                    st.write(f"✅ {t}")
-                st.write("**🛡️ Prevention:**")
-                for p in info["prevention"]:
-                    st.write(f"🔹 {p}")
+        emoji = crop_emojis.get(selected, "🌿")
+
+        st.markdown(f"""
+        <div style="background:linear-gradient(135deg,#1a5276,#27ae60);color:white;
+        padding:15px 20px;border-radius:12px;margin:10px 0;">
+            <h3 style="margin:0;">{emoji} {selected}</h3>
+            <p style="margin:5px 0 0 0;opacity:0.9;">
+                Found <b>{len(matches)} diseases</b> in database
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        healthy = [m for m in matches if "Healthy" in m["name"]]
+        diseases = [m for m in matches if "Healthy" not in m["name"]]
+
+        if healthy:
+            st.markdown("### ✅ Healthy State")
+            for info in healthy:
+                with st.expander(f"🟢 {info['name']}"):
+                    st.success("This plant is in a healthy state with no disease detected.")
+                    for p in info["prevention"]:
+                        st.markdown(f'<div class="prevention-item">🔹 {p}</div>', unsafe_allow_html=True)
+
+        if diseases:
+            st.markdown(f"### ⚠️ {len(diseases)} Disease(s) Found")
+            for info in diseases:
+                with st.expander(f"{info['emoji']} {info['name']}"):
+                    st.markdown(f"""
+                    <div class="info-section">
+                        <h4>🔬 Disease Information</h4>
+                        <p><b>Cause:</b> {info['cause']}</p>
+                        <p><b>Symptoms:</b> {info['symptoms']}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        st.markdown("**💊 Treatment:**")
+                        for t in info["treatment"]:
+                            st.markdown(f'<div class="treatment-item">✅ {t}</div>', unsafe_allow_html=True)
+                    with col2:
+                        st.markdown("**🛡️ Prevention:**")
+                        for p in info["prevention"]:
+                            st.markdown(f'<div class="prevention-item">🔹 {p}</div>', unsafe_allow_html=True)
 
 # ── Footer ───────────────────────────────────────
+st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("""
 <div class="footer">
-    Developed by <b>Yusuf Gambo</b> | Matric: SIT/CSC/23/0005 |
-    FUTB Computer Science | 2024/2025<br>
-    Supervised by <b>Dr. Khalid Haruna</b> |
-    <a href="https://futb-plant-disease.streamlit.app" target="_blank">
-    🌐 futb-plant-disease.streamlit.app</a>
+    <p style="margin:0;font-size:1rem;">🌿 Plant Disease Detection System</p>
+    <p style="margin:5px 0;opacity:0.9;">
+        Developed by <b>Yusuf Gambo</b> | Matric: SIT/CSC/23/0005<br>
+        B.Sc Computer Science | FUTB | 2024/2025<br>
+        Supervised by <b>Dr. Khalid Haruna</b>
+    </p>
+    <a href="https://futb-plant-disease.streamlit.app" 
+       style="color:#a9dfbf;">
+       🌐 futb-plant-disease.streamlit.app
+    </a>
 </div>
 """, unsafe_allow_html=True)
